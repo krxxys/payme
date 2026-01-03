@@ -2,12 +2,13 @@
   <b>payme</b>
 </div>
 
+#
+
 <div align="center">
   <b>Personal finance tracking application with rolling monthly budgets.</b>
 </div>
 
 #
-
 
 payme was designed for self-hosting in a homelab environment. Run it on a Raspberry Pi, NAS, or any always-on server to track your household finances privately without relying on third-party services. Your financial data stays on your network, under your control.
 
