@@ -1,0 +1,17 @@
+services:
+  payme:
+    build: .
+    container_name: payme
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    volumes:
+      - payme_data:/data
+    environment:
+      - DATABASE_URL=sqlite:/data/payme.db?mode=rwc
+      - JWT_SECRET=${JWT_SECRET:-change-me-in-production}
+      - PORT=3001
+
+volumes:
+  payme_data:
+

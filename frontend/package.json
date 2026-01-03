@@ -1,0 +1,27 @@
+{
+  "name": "payme-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lucide-react": "*",
+    "react": "*",
+    "react-dom": "*",
+    "recharts": "*"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "*",
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "@vitejs/plugin-react": "*",
+    "tailwindcss": "*",
+    "typescript": "*",
+    "vite": "*"
+  }
+}
+
