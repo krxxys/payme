@@ -8,6 +8,8 @@ use crate::models::{BudgetCategory, FixedExpense, IncomeEntry, Item, Month};
 #[derive(Serialize, Deserialize)]
 pub struct UserExport {
     pub version: u32,
+    pub savings: Option<f64>,
+    pub roth_ira: Option<f64>,
     pub fixed_expenses: Vec<FixedExpenseExport>,
     pub categories: Vec<CategoryExport>,
     pub months: Vec<MonthExport>,
@@ -59,6 +61,18 @@ pub async fn export_json(
     State(pool): State<SqlitePool>,
     axum::Extension(claims): axum::Extension<Claims>,
 ) -> Result<Json<UserExport>, StatusCode> {
+    let savings: f64 = sqlx::query_scalar("SELECT savings FROM users WHERE id = ?")
+        .bind(claims.sub)
+        .fetch_one(&pool)
+        .await
+        .unwrap_or(0.0);
+
+    let roth_ira: f64 = sqlx::query_scalar("SELECT roth_ira FROM users WHERE id = ?")
+        .bind(claims.sub)
+        .fetch_one(&pool)
+        .await
+        .unwrap_or(0.0);
+
     let fixed_expenses: Vec<FixedExpense> =
         sqlx::query_as("SELECT id, user_id, label, amount FROM fixed_expenses WHERE user_id = ?")
             .bind(claims.sub)
@@ -151,6 +165,8 @@ pub async fn export_json(
 
     Ok(Json(UserExport {
         version: 1,
+        savings: Some(savings),
+        roth_ira: Some(roth_ira),
         fixed_expenses: fixed_expenses
             .into_iter()
             .map(|e| FixedExpenseExport {
@@ -219,6 +235,24 @@ pub async fn import_json(
         .execute(&pool)
         .await
         .ok();
+
+    if let Some(savings) = data.savings {
+        sqlx::query("UPDATE users SET savings = ? WHERE id = ?")
+            .bind(savings)
+            .bind(claims.sub)
+            .execute(&pool)
+            .await
+            .ok();
+    }
+
+    if let Some(roth_ira) = data.roth_ira {
+        sqlx::query("UPDATE users SET roth_ira = ? WHERE id = ?")
+            .bind(roth_ira)
+            .bind(claims.sub)
+            .execute(&pool)
+            .await
+            .ok();
+    }
 
     for expense in &data.fixed_expenses {
         sqlx::query("INSERT INTO fixed_expenses (user_id, label, amount) VALUES (?, ?, ?)")

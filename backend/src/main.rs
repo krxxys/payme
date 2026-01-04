@@ -13,7 +13,7 @@ use axum::{
 use tower_http::cors::{Any, CorsLayer};
 
 use config::Config;
-use handlers::{auth, budget, export, fixed_expenses, income, items, months, stats};
+use handlers::{auth, budget, export, fixed_expenses, income, items, months, savings, stats};
 use middleware::auth::auth_middleware;
 
 #[tokio::main]
@@ -59,6 +59,10 @@ async fn main() {
         .route("/api/months/{month_id}/items/{id}", put(items::update_item))
         .route("/api/months/{month_id}/items/{id}", delete(items::delete_item))
         .route("/api/stats", get(stats::get_stats))
+        .route("/api/savings", get(savings::get_savings))
+        .route("/api/savings", put(savings::update_savings))
+        .route("/api/roth-ira", get(savings::get_roth_ira))
+        .route("/api/roth-ira", put(savings::update_roth_ira))
         .route("/api/export/json", get(export::export_json))
         .route("/api/import/json", post(export::import_json))
         .layer(from_fn(auth_middleware));

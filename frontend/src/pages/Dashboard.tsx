@@ -1,6 +1,8 @@
 import { Layout } from "../components/Layout";
 import { MonthNav } from "../components/MonthNav";
 import { Summary } from "../components/Summary";
+import { SavingsCard } from "../components/SavingsCard";
+import { RothIraCard } from "../components/RothIraCard";
 import { IncomeSection } from "../components/IncomeSection";
 import { FixedExpenses } from "../components/FixedExpenses";
 import { BudgetSection } from "../components/BudgetSection";
@@ -47,13 +49,18 @@ export function Dashboard() {
   return (
     <Layout>
       <div className="flex items-center justify-between mb-4">
-        <MonthNav
-          months={months}
-          selectedMonthId={selectedMonthId}
-          onSelect={selectMonth}
-          onClose={closeMonth}
-          onDownloadPdf={downloadPdf}
-        />
+        <div className="flex items-center gap-4">
+          <MonthNav
+            months={months}
+            selectedMonthId={selectedMonthId}
+            onSelect={selectMonth}
+            onClose={closeMonth}
+            onDownloadPdf={downloadPdf}
+          />
+          <div className="w-36">
+            <SavingsCard />
+          </div>
+        </div>
         <Stats />
       </div>
 
@@ -63,6 +70,7 @@ export function Dashboard() {
           totalFixed={summary.total_fixed}
           totalSpent={summary.total_spent}
           remaining={summary.remaining}
+          extraCard={<RothIraCard />}
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

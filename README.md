@@ -91,6 +91,8 @@ Export/import database via the UI download button or `/api/export` endpoint.
 | `/api/months/:id/items` | GET/POST | List/create items |
 | `/api/months/:mid/items/:id` | PUT/DELETE | Update/delete item |
 | `/api/stats` | GET | Statistics data |
+| `/api/savings` | GET/PUT | Get/update savings |
+| `/api/roth-ira` | GET/PUT | Get/update Roth IRA |
 
 ## Docker
 

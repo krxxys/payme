@@ -55,6 +55,10 @@
   font-family: var(--font-mono);
 }
 
+button {
+  cursor: pointer;
+}
+
 body {
   @apply bg-sand-50 text-charcoal-900 transition-colors duration-300;
 }

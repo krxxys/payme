@@ -15,12 +15,23 @@ pub async fn run_migrations(pool: &SqlitePool) -> Result<(), sqlx::Error> {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT NOT NULL UNIQUE,
             password_hash TEXT NOT NULL,
+            savings REAL NOT NULL DEFAULT 0,
             created_at TEXT NOT NULL DEFAULT (datetime('now'))
         )
         "#,
     )
     .execute(pool)
     .await?;
+
+    sqlx::query("ALTER TABLE users ADD COLUMN savings REAL NOT NULL DEFAULT 0")
+        .execute(pool)
+        .await
+        .ok();
+
+    sqlx::query("ALTER TABLE users ADD COLUMN roth_ira REAL NOT NULL DEFAULT 0")
+        .execute(pool)
+        .await
+        .ok();
 
     sqlx::query(
         r#"
