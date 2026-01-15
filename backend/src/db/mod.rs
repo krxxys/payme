@@ -16,6 +16,7 @@ pub async fn run_migrations(pool: &SqlitePool) -> Result<(), sqlx::Error> {
             username TEXT NOT NULL UNIQUE,
             password_hash TEXT NOT NULL,
             savings REAL NOT NULL DEFAULT 0,
+            savings_goal REAL NOT NULL DEFAULT 0,
             created_at TEXT NOT NULL DEFAULT (datetime('now'))
         )
         "#,
@@ -29,6 +30,11 @@ pub async fn run_migrations(pool: &SqlitePool) -> Result<(), sqlx::Error> {
         .ok();
 
     sqlx::query("ALTER TABLE users ADD COLUMN retirement_savings REAL NOT NULL DEFAULT 0")
+        .execute(pool)
+        .await
+        .ok();
+
+    sqlx::query("ALTER TABLE users ADD COLUMN savings_goal REAL NOT NULL DEFAULT 0")
         .execute(pool)
         .await
         .ok();

@@ -180,11 +180,16 @@ export const api = {
   },
 
   savings: {
-    get: () => request<{ savings: number }>("/savings"),
+    get: () => request<{ savings: number; savings_goal: number }>("/savings"),
     update: (savings: number) =>
-      request<{ savings: number }>("/savings", {
+      request<{ savings: number; savings_goal: number }>("/savings", {
         method: "PUT",
         body: JSON.stringify({ savings }),
+      }),
+    updateGoal: (savings_goal: number) =>
+      request<{ savings: number; savings_goal: number }>("/savings/goal", {
+        method: "PUT",
+        body: JSON.stringify({ savings_goal }),
       }),
   },
 

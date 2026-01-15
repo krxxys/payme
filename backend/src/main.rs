@@ -104,6 +104,7 @@ async fn main() {
         .route("/api/stats", get(stats::get_stats))
         .route("/api/savings", get(savings::get_savings))
         .route("/api/savings", put(savings::update_savings))
+        .route("/api/savings/goal", put(savings::update_savings_goal))
         .route(
             "/api/retirement-savings",
             get(savings::get_retirement_savings),
