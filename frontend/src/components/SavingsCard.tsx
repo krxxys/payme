@@ -6,6 +6,8 @@ import { Input } from "./ui/Input";
 import { ProgressBar } from "./ui/ProgressBar";
 import { Modal } from "./ui/Modal";
 import { Button } from "./ui/Button";
+import { useTranslation } from "react-i18next";
+import { useCurrency } from "../hooks/useCurrency";
 
 interface SavingsCardProps {
   onSavingsChange?: (savings: number) => void;
@@ -20,6 +22,10 @@ export function SavingsCard({ onSavingsChange, remaining }: SavingsCardProps) {
   const [editGoalValue, setEditGoalValue] = useState("");
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [isEditingGoal, setIsEditingGoal] = useState(false);
+
+  const { currencySymbol } = useCurrency();
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     api.savings.get().then((res) => {
@@ -77,12 +83,12 @@ export function SavingsCard({ onSavingsChange, remaining }: SavingsCardProps) {
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-1.5">
           <span className="text-xs text-charcoal-500 dark:text-charcoal-400">
-            Savings
+          {t("savings_card.text.savings")}
           </span>
           <button
             onClick={() => setShowInfoModal(true)}
             className="p-0.5 hover:bg-sand-200 dark:hover:bg-charcoal-700 rounded transition-colors touch-manipulation"
-            title="How this works"
+            title={t("savings_card.button.how_this_works")}
           >
             <Info size={12} className="text-charcoal-400 hover:text-charcoal-600 dark:hover:text-charcoal-300" />
           </button>
@@ -115,7 +121,7 @@ export function SavingsCard({ onSavingsChange, remaining }: SavingsCardProps) {
       ) : (
         <div className="flex items-center justify-between mb-3">
           <span className="text-lg sm:text-xl font-semibold text-sage-700 dark:text-sage-400">
-            ${savings.toFixed(2)}
+            {savings.toFixed(2)}{currencySymbol}
           </span>
           <button
             onClick={startEdit}
@@ -153,7 +159,7 @@ export function SavingsCard({ onSavingsChange, remaining }: SavingsCardProps) {
         ) : (
           <div className="flex items-center justify-between text-xs">
             <span className="text-charcoal-500 dark:text-charcoal-400">
-              Goal: ${target.toFixed(2)}
+              {t("savings_card.text.goal")}: {target.toFixed(2)}{currencySymbol}
             </span>
             <button
               onClick={startEditGoal}
@@ -168,7 +174,7 @@ export function SavingsCard({ onSavingsChange, remaining }: SavingsCardProps) {
         
         <div className="flex items-center justify-between text-xs">
           <span className={`font-medium ${isAhead ? 'text-sage-600 dark:text-sage-400' : 'text-terracotta-600 dark:text-terracotta-400'}`}>
-            {isAhead ? '✓' : '⚠️'} {Math.abs(percentage - 100).toFixed(1)}% {isAhead ? 'ahead' : 'behind'}
+            {isAhead ? '✓' : '⚠️'} {Math.abs(percentage - 100).toFixed(1)}% {isAhead ? t('savings_card.text.ahead') : t('savings_card.text.behind')}
           </span>
           <span className="text-charcoal-500 dark:text-charcoal-400">
             {isAhead ? '+' : ''}{difference.toFixed(2)}
@@ -176,46 +182,46 @@ export function SavingsCard({ onSavingsChange, remaining }: SavingsCardProps) {
         </div>
         
         <p className="text-xs text-charcoal-400 dark:text-charcoal-500 italic">
-          {savingsGoal > 0 ? 'based on your goal' : 'based on remaining budget'}
+          {savingsGoal > 0 ? t('savings_card.text.based_on_your_goal') : t('savings_card.text.based_on_remaining_budget')}
         </p>
       </div>
     </Card>
 
-    <Modal isOpen={showInfoModal} onClose={() => setShowInfoModal(false)} title="How Savings Tracking Works">
+    <Modal isOpen={showInfoModal} onClose={() => setShowInfoModal(false)} title={t("savings_card.modal.how_savings_tracking_works")}>
       <div className="space-y-4">
         <div>
           <h3 className="text-sm font-semibold text-charcoal-700 dark:text-sand-200 mb-2">
-            Current Savings
+            {t("savings_card.text.current_savings")}
           </h3>
           <p className="text-sm text-charcoal-600 dark:text-charcoal-300">
-            Your actual savings balance. Update this anytime as you add or withdraw money.
+            {t("savings_card.text.your_actual_savings_balance,_update_this_anytime_as_you_add_or_withdraw_money")}.
           </p>
         </div>
 
         <div>
           <h3 className="text-sm font-semibold text-charcoal-700 dark:text-sand-200 mb-2">
-            Savings Goal
+            {t("savings_card.text.savings_goal")}
           </h3>
           <p className="text-sm text-charcoal-600 dark:text-charcoal-300 mb-2">
-            Set your own target amount. If no goal is set, it defaults to:
+            {t("savings_card.text.set_your_own_target_amount, if_no_goal_is_set,_it_defaults_to")}:
           </p>
           <div className="bg-sand-100 dark:bg-charcoal-800 p-3 rounded text-xs font-mono">
-            Current Savings + Remaining Budget
+            {t("savings_card.text.current_savings_+_remaining_budget")}
           </div>
         </div>
 
         <div>
           <h3 className="text-sm font-semibold text-charcoal-700 dark:text-sand-200 mb-2">
-            Progress Tracking
+            {t("savings_card.text.progress_tracking")}
           </h3>
           <p className="text-sm text-charcoal-600 dark:text-charcoal-300">
-            The progress bar shows how close you are to your goal. Green means you're ahead, red means you're behind.
+            {t("savings_card.text.the_progress_bar_shows_how_close_you_are_to_your_goal,_green_means_you're_ahead_and_red_means_you're_behind")}.
           </p>
         </div>
 
         <div className="pt-4 border-t border-sand-300 dark:border-charcoal-700">
           <Button onClick={() => setShowInfoModal(false)} className="w-full sm:w-auto">
-            Got it
+            {t("savings_card.text.got_it")}
           </Button>
         </div>
       </div>

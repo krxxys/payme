@@ -12,7 +12,7 @@ import { ItemsSection } from "../components/ItemsSection";
 import { Stats } from "../components/Stats";
 import { useMonth } from "../hooks/useMonth";
 import { Loader2 } from "lucide-react";
-
+import { useTranslation } from 'react-i18next';
 interface DashboardProps {
   onSettingsClick: () => void;
 }
@@ -31,6 +31,8 @@ export function Dashboard({ onSettingsClick }: DashboardProps) {
     downloadPdf,
   } = useMonth();
 
+  const { t } = useTranslation();
+
   if (loading && !summary) {
     return (
       <Layout onSettingsClick={onSettingsClick}>
@@ -45,7 +47,7 @@ export function Dashboard({ onSettingsClick }: DashboardProps) {
     return (
       <Layout onSettingsClick={onSettingsClick}>
         <div className="text-center py-20 text-charcoal-500">
-          Unable to load data
+          {t("dashboard.text.unable_to_load_data")}
         </div>
       </Layout>
     );

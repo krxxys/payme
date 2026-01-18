@@ -26,13 +26,13 @@ async function request<T>(
 
 export const api = {
   auth: {
-    register: (username: string, password: string) =>
-      request<{ id: number; username: string }>("/auth/register", {
+    register: (username: string, password: string, currency: string) =>
+      request<{ id: number; username: string, currency: string }>("/auth/register", {
         method: "POST",
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password, currency }),
       }),
     login: (username: string, password: string) =>
-      request<{ id: number; username: string }>("/auth/login", {
+      request<{ id: number; username: string, currency: string }>("/auth/login", {
         method: "POST",
         body: JSON.stringify({ username, password }),
       }),

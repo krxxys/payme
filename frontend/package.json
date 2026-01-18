@@ -10,25 +10,28 @@
     "lint": "eslint src --ext .ts,.tsx --max-warnings 0"
   },
   "dependencies": {
+    "@dinero.js/currencies": "^2.0.0-alpha.14",
+    "currency-symbol-map": "^5.1.0",
+    "i18next": "^25.7.4",
     "lucide-react": "*",
     "react": "*",
     "react-dom": "*",
     "recharts": "*"
   },
   "devDependencies": {
+    "@eslint/js": "*",
     "@tailwindcss/vite": "*",
     "@types/react": "*",
     "@types/react-dom": "*",
     "@vitejs/plugin-react": "*",
     "eslint": "*",
-    "@eslint/js": "*",
-    "typescript-eslint": "*",
     "eslint-plugin-react-hooks": "*",
     "eslint-plugin-react-refresh": "*",
     "globals": "*",
+    "i18next-cli": "^1.36.1",
     "tailwindcss": "*",
     "typescript": "*",
+    "typescript-eslint": "*",
     "vite": "*"
   }
 }
-

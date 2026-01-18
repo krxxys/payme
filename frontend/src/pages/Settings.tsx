@@ -6,6 +6,7 @@ import { Modal } from "../components/ui/Modal";
 import { useAuth } from "../context/AuthContext";
 import { api } from "../api/client";
 import { ArrowLeft } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 interface SettingsProps {
   onBack: () => void;
@@ -28,13 +29,16 @@ export function Settings({ onBack }: SettingsProps) {
   const [usernameSuccess, setUsernameSuccess] = useState(false);
   const [passwordSuccess, setPasswordSuccess] = useState(false);
 
+  const { t } = useTranslation();
+
   const handleChangeUsername = async (e: React.FormEvent) => {
     e.preventDefault();
     setUsernameError("");
     setUsernameSuccess(false);
 
+
     if (newUsername.length < 3 || newUsername.length > 32) {
-      setUsernameError("Username must be 3-32 characters");
+      setUsernameError(t("settings.error.username_must_be_3-32_characters"));
       return;
     }
 
@@ -45,7 +49,7 @@ export function Settings({ onBack }: SettingsProps) {
       setUsernameSuccess(true);
       setTimeout(() => setUsernameSuccess(false), 3000);
     } catch {
-      setUsernameError("Failed to change username. It may already be taken.");
+      setUsernameError(t("settings.error.failed_to_change_username,_it_may_already_be_taken") + ".");
     } finally {
       setUsernameLoading(false);
     }
@@ -56,13 +60,14 @@ export function Settings({ onBack }: SettingsProps) {
     setPasswordError("");
     setPasswordSuccess(false);
 
+    
     if (newPassword.length < 6 || newPassword.length > 128) {
-      setPasswordError("Password must be 6-128 characters");
+      setPasswordError(t("settings.error.password_must_be_6-128_characters"));
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      setPasswordError("Passwords do not match");
+      setPasswordError(t("settings.error.passwords_do_not_match"));
       return;
     }
 
@@ -75,7 +80,7 @@ export function Settings({ onBack }: SettingsProps) {
       setPasswordSuccess(true);
       setTimeout(() => setPasswordSuccess(false), 3000);
     } catch {
-      setPasswordError("Failed to change password. Check your current password.");
+      setPasswordError(t("settings.error.failed_to_change_password,_check_your_current_password") + ".");
     } finally {
       setPasswordLoading(false);
     }
@@ -85,7 +90,7 @@ export function Settings({ onBack }: SettingsProps) {
     setDeleteError("");
 
     if (deletePassword.length < 6) {
-      setDeleteError("Please enter your password");
+      setDeleteError(t("settings.error.please_enter_your_password") + ".");
       return;
     }
 
@@ -94,7 +99,7 @@ export function Settings({ onBack }: SettingsProps) {
       await api.auth.clearAllData(deletePassword);
       await logout();
     } catch {
-      setDeleteError("Failed to clear data. Check your password.");
+      setDeleteError(t("settings.error.failed_to_clear_data,_check_your_password") + ".");
       setDeleteLoading(false);
     }
   };
@@ -107,89 +112,89 @@ export function Settings({ onBack }: SettingsProps) {
           className="mb-4 sm:mb-6 flex items-center gap-2 text-sm text-charcoal-600 dark:text-charcoal-400 hover:text-charcoal-900 dark:hover:text-sand-100 transition-colors touch-manipulation"
         >
           <ArrowLeft size={16} />
-          Back to Dashboard
+          {t("settings.button.back_to_dashboard")}
         </button>
 
         <h1 className="text-xl sm:text-2xl font-semibold mb-6 sm:mb-8 text-charcoal-800 dark:text-sand-100">
-          Settings
+          {t("settings.text.settings")}
         </h1>
 
         <div className="space-y-6 sm:space-y-8">
           <div className="bg-sand-100 dark:bg-charcoal-900 p-4 sm:p-6 border border-sand-200 dark:border-charcoal-800">
             <h2 className="text-base sm:text-lg font-medium mb-4 text-charcoal-800 dark:text-sand-100">
-              Change Username
+              {(t("settings.text.change_username"))}
             </h2>
             <form onSubmit={handleChangeUsername} className="space-y-4">
               <Input
-                label="New Username"
+                label={t("settings.input.new_username")}
                 type="text"
                 value={newUsername}
                 onChange={(e) => setNewUsername(e.target.value)}
-                placeholder="Enter new username"
+                placeholder={t("settings.input.enter_new_username")}
                 disabled={usernameLoading}
               />
               {usernameError && (
                 <p className="text-sm text-terracotta-600">{usernameError}</p>
               )}
               {usernameSuccess && (
-                <p className="text-sm text-sage-600">Username changed successfully</p>
+                <p className="text-sm text-sage-600">{t("settings.text.username_changed_succesfully")}</p>
               )}
               <Button type="submit" disabled={usernameLoading || newUsername === user?.username}>
-                {usernameLoading ? "Saving..." : "Save Username"}
+                {usernameLoading ? t("settings.button.saving") + "..." : t("settings.button.save_username")}
               </Button>
             </form>
           </div>
 
           <div className="bg-sand-100 dark:bg-charcoal-900 p-4 sm:p-6 border border-sand-200 dark:border-charcoal-800">
             <h2 className="text-base sm:text-lg font-medium mb-4 text-charcoal-800 dark:text-sand-100">
-              Change Password
+              {t("settings.text.change_password")}
             </h2>
             <form onSubmit={handleChangePassword} className="space-y-4">
               <Input
-                label="Current Password"
+                label={t("settings.input.current_password")}
                 type="password"
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
-                placeholder="Enter current password"
+                placeholder={t("settings.input.enter_current_password")}
                 disabled={passwordLoading}
               />
               <Input
-                label="New Password"
+                label={t("settings.input.new_password")}
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="Enter new password"
+                placeholder={t("settings.input.enter_new_password")}
                 disabled={passwordLoading}
               />
               <Input
-                label="Confirm New Password"
+                label={t("settings.input.confirm_new_password")}
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm new password"
+                placeholder={("settings.input.confirm_new_password")}
                 disabled={passwordLoading}
               />
               {passwordError && (
                 <p className="text-sm text-terracotta-600">{passwordError}</p>
               )}
               {passwordSuccess && (
-                <p className="text-sm text-sage-600">Password changed successfully</p>
+                <p className="text-sm text-sage-600">{t("settings.text.password_changed_successfully")}</p>
               )}
               <Button type="submit" disabled={passwordLoading}>
-                {passwordLoading ? "Changing..." : "Change Password"}
+                {passwordLoading ? t("settings.button.changing") + "..." : t("settings.button.change_password")}
               </Button>
             </form>
           </div>
 
           <div className="bg-terracotta-50 dark:bg-charcoal-900 p-4 sm:p-6 border-2 border-terracotta-300 dark:border-terracotta-800">
             <h2 className="text-base sm:text-lg font-medium mb-2 text-terracotta-800 dark:text-terracotta-300">
-              Danger Zone
+              {t("settings.text.danger_zone")}
             </h2>
             <p className="text-sm text-charcoal-600 dark:text-charcoal-400 mb-4">
-              This action cannot be undone. All your data will be permanently deleted.
+              {t("settings.text.this_action_cannot_be_undone, all_your_data_will_be_permanently_deleted") + "."}
             </p>
             <Button variant="danger" onClick={() => setShowDeleteModal(true)}>
-              Clear All Data
+              {t("settings.button.clear_all_data")}
             </Button>
           </div>
         </div>
@@ -206,24 +211,24 @@ export function Settings({ onBack }: SettingsProps) {
       >
         <div className="space-y-4">
           <p className="text-sm text-charcoal-600 dark:text-charcoal-300">
-            This will permanently delete all your data including:
+            {t("settings.text.this_will_permanently_delete_all_your_data_including:")}
           </p>
           <ul className="text-sm text-charcoal-600 dark:text-charcoal-300 list-disc list-inside space-y-1">
-            <li>All months and transactions</li>
-            <li>All budget categories</li>
-            <li>All fixed expenses</li>
-            <li>All income entries</li>
-            <li>Your account and settings</li>
+            <li>{t("settings.text.all_months_and_transactions")}</li>
+            <li>{t("settings.text.all_budget_categories")}</li>
+            <li>{t("settings.text.all_fixed_expenses")}</li>
+            <li>{t("settings.text.all_income_entries")}</li>
+            <li>{("settings.text.your_account_and_settings")}</li>
           </ul>
           <p className="text-sm font-medium text-terracotta-700 dark:text-terracotta-400">
-            This action cannot be undone.
+            {("settings.text.this_action_cannot_be_undone.")}
           </p>
           <Input
-            label="Confirm your password"
+            label={t("settings.input.confirm_your_password")}
             type="password"
             value={deletePassword}
             onChange={(e) => setDeletePassword(e.target.value)}
-            placeholder="Enter your password"
+            placeholder={t("settings.input.enter_your_password")}
             disabled={deleteLoading}
           />
           {deleteError && (
@@ -231,7 +236,7 @@ export function Settings({ onBack }: SettingsProps) {
           )}
           <div className="flex flex-col sm:flex-row gap-2">
             <Button variant="danger" onClick={handleClearData} disabled={deleteLoading} className="w-full sm:w-auto">
-              {deleteLoading ? "Deleting..." : "Yes, Delete Everything"}
+              {deleteLoading ? t("settings.button.deleting") + "..." : t("settings.button.yes,_delete_everything")}
             </Button>
             <Button
               variant="ghost"
@@ -243,7 +248,7 @@ export function Settings({ onBack }: SettingsProps) {
               disabled={deleteLoading}
               className="w-full sm:w-auto"
             >
-              Cancel
+              {t("settings.button.cancel")}
             </Button>
           </div>
         </div>

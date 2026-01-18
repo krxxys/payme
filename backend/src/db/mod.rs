@@ -17,7 +17,8 @@ pub async fn run_migrations(pool: &SqlitePool) -> Result<(), sqlx::Error> {
             password_hash TEXT NOT NULL,
             savings REAL NOT NULL DEFAULT 0,
             savings_goal REAL NOT NULL DEFAULT 0,
-            created_at TEXT NOT NULL DEFAULT (datetime('now'))
+            created_at TEXT NOT NULL DEFAULT (datetime('now')),
+            currency TEXT NOT NULL DEFAULT "USD"
         )
         "#,
     )

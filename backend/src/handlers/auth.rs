@@ -16,23 +16,34 @@ use crate::error::PaymeError;
 use crate::middleware::auth::Claims;
 
 #[derive(Deserialize, ToSchema, Validate)]
-pub struct AuthRequest {
+pub struct LoginRequest {
     #[validate(length(min = 3, max = 32))]
     pub username: String,
     #[validate(length(min = 6, max = 128))]
     pub password: String,
 }
 
+#[derive(Deserialize, ToSchema, Validate)]
+pub struct RegisterRequest {
+    #[validate(length(min = 3, max = 32))]
+    pub username: String,
+    #[validate(length(min = 6, max = 128))]
+    pub password: String,
+    #[validate(length(min = 1, max = 3))]
+    pub currency: String        
+}
+
 #[derive(Serialize, ToSchema)]
 pub struct AuthResponse {
     pub id: i64,
     pub username: String,
+    pub currency: String
 }
 
 #[utoipa::path(
     post,
     path = "/api/auth/register",
-    request_body = AuthRequest,
+    request_body = RegisterRequest,
     responses(
         (status = 200, description = "User registered successfully", body = AuthResponse),
         (status = 409, description = "Username already exists"),
@@ -44,7 +55,7 @@ pub struct AuthResponse {
 )]
 pub async fn register(
     State(pool): State<SqlitePool>,
-    Json(payload): Json<AuthRequest>,
+    Json(payload): Json<RegisterRequest>,
 ) -> Result<impl IntoResponse, PaymeError> {
     payload.validate()?;
     let salt = SaltString::generate(&mut OsRng);
@@ -55,23 +66,25 @@ pub async fn register(
         .to_string();
 
     let result = sqlx::query_scalar::<_, i64>(
-        "INSERT INTO users (username, password_hash) VALUES (?, ?) RETURNING id",
+        "INSERT INTO users (username, password_hash, currency) VALUES (?, ?, ?) RETURNING id",
     )
     .bind(&payload.username)
     .bind(&password_hash)
+    .bind(&payload.currency)
     .fetch_one(&pool)
     .await?;
 
     Ok(Json(AuthResponse {
         id: result,
         username: payload.username,
+        currency: payload.currency
     }))
 }
 
 #[utoipa::path(
     post,
     path = "/api/auth/login",
-    request_body = AuthRequest,
+    request_body = LoginRequest,
     responses(
         (status = 200, description = "Login successful", body = AuthResponse),
         (status = 401, description = "Invalid credentials"),
@@ -84,11 +97,11 @@ pub async fn register(
 pub async fn login(
     State(pool): State<SqlitePool>,
     jar: CookieJar,
-    Json(payload): Json<AuthRequest>,
+    Json(payload): Json<LoginRequest>,
 ) -> Result<impl IntoResponse, PaymeError> {
     payload.validate()?;
-    let user: (i64, String, String) =
-        sqlx::query_as("SELECT id, username, password_hash FROM users WHERE username = ?")
+    let user: (i64, String, String, String) =
+        sqlx::query_as("SELECT id, username, password_hash, currency FROM users WHERE username = ?")
             .bind(&payload.username)
             .fetch_optional(&pool)
             .await?
@@ -128,6 +141,7 @@ pub async fn login(
         Json(AuthResponse {
             id: user.0,
             username: user.1,
+            currency: user.3
         }),
     ))
 }
@@ -169,7 +183,7 @@ pub async fn me(
     State(pool): State<SqlitePool>,
     axum::Extension(claims): axum::Extension<Claims>,
 ) -> Result<Json<AuthResponse>, PaymeError> {
-    let user: (i64, String) = sqlx::query_as("SELECT id, username FROM users WHERE id = ?")
+    let user: (i64, String, String) = sqlx::query_as("SELECT id, username, currency FROM users WHERE id = ?")
         .bind(claims.sub)
         .fetch_optional(&pool)
         .await?
@@ -178,6 +192,7 @@ pub async fn me(
     Ok(Json(AuthResponse {
         id: user.0,
         username: user.1,
+        currency: user.2,
     }))
 }
 
@@ -239,10 +254,17 @@ pub async fn change_username(
         .bind(claims.sub)
         .execute(&pool)
         .await?;
-
+    let user: (String, ) =
+        sqlx::query_as("SELECT currency FROM users WHERE username = ?")
+            .bind(&claims.sub)
+            .fetch_optional(&pool)
+            .await?
+            .ok_or(PaymeError::NotFound)?;
+    
     Ok(Json(AuthResponse {
         id: claims.sub,
         username: payload.new_username,
+        currency: user.0
     }))
 }
 

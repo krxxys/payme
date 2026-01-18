@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { api } from "../api/client";
+import { useCurrency } from "../hooks/useCurrency";
 
 interface User {
   id: number;
@@ -10,7 +11,7 @@ interface AuthContextType {
   user: User | null;
   loading: boolean;
   login: (username: string, password: string) => Promise<void>;
-  register: (username: string, password: string) => Promise<void>;
+  register: (username: string, password: string, currency: string) => Promise<void>;
   logout: () => Promise<void>;
   updateUsername: (username: string) => void;
 }
@@ -20,6 +21,8 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const { setUserCurrency } = useCurrency();
 
   useEffect(() => {
     api.auth
@@ -32,10 +35,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (username: string, password: string) => {
     const user = await api.auth.login(username, password);
     setUser(user);
+    setUserCurrency(user.currency)
   };
 
-  const register = async (username: string, password: string) => {
-    await api.auth.register(username, password);
+  const register = async (username: string, password: string, currency: string) => {
+    await api.auth.register(username, password, currency);
     await login(username, password);
   };
 

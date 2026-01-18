@@ -1,0 +1,297 @@
+{
+  "budget": {
+    "button": {
+      "add_category": "Dodaj kategorie"
+    },
+    "input": {
+      "category_name": "Nazwa kategori",
+      "default": "Domyślna",
+      "label": "Nazwa"
+    },
+    "text": {
+      "budget": "Budżet",
+      "categories_define_your_budget_types,_default_amounts_apply_to_new_months": "Kategorie definiują twoje typy budżetu, domyślne wartości naliczają sie do nowych miesięcy",
+      "no_budget_categories": "Brak kategori budżetowych"
+    }
+  },
+  "dashboard": {
+    "text": {
+      "unable_to_load_data": "Nie można załadować danych"
+    }
+  },
+  "fixed_expenses": {
+    "button": {
+      "add_expense": "Dodaj wydatek"
+    },
+    "input": {
+      "amount": "Kwota",
+      "label": "Nazwa"
+    },
+    "modal": {
+      "manage_fixed_expenses": "Zarządzaj stałymi wydatkami"
+    },
+    "no_fixed_expenses": "Brak stałych wydatków",
+    "text": {
+      "fixed_expenses": "Stałe wydatki"
+    },
+    "total": "Suma"
+  },
+  "income": {
+    "input": {
+      "amount": "Kwota",
+      "label": "Nazwa"
+    },
+    "text": {
+      "income": "Przychód",
+      "no_income_entries": "Brak przychodów"
+    }
+  },
+  "input": {
+    "table": {
+      "amount": "Ilość"
+    }
+  },
+  "items": {
+    "button": {
+      "add": "Dodaj",
+      "cancel": "Anuluj",
+      "close": "Zamknij"
+    },
+    "input": {
+      "amount": "Kwota",
+      "description": "Opis"
+    },
+    "table": {
+      "amount": "Kwota",
+      "category": "Kategoria",
+      "date": "Data",
+      "description": "Opis"
+    },
+    "text": {
+      "add_some_in_the_budget_section_first": "Najpierw dodaj coś do kategori budżetowych",
+      "no_budget_categories_yet": "Brak kategori budżetowych",
+      "no_spending_items": "Brak wydatków",
+      "spending_items": "Wydatki"
+    }
+  },
+  "laoyut": {
+    "text": {
+      "welcome": "Witaj"
+    }
+  },
+  "layout": {
+    "button": {
+      "cancel": "Anuluj",
+      "export_data": "Eksportuj",
+      "import_data": "Zaimportuj",
+      "importing": "Imprtuje",
+      "logout": "Wyloguj",
+      "replace_my_data": "Zamień moje dane",
+      "settings": "Ustawienia",
+      "toggle_theme": "Przełącz motyw"
+    },
+    "modal": {
+      "import_data": "Importuj dane"
+    },
+    "text": {
+      "categories": "Kategorie",
+      "fixed_expenses": "Stałe wydatki",
+      "months": "Miesiące",
+      "this_will_replace_all_your_current_data_with_the_imported_file": "Zamień moje dane na dane z pliku"
+    }
+  },
+  "login": {
+    "button": {
+      "create_account": "Utwóz konto",
+      "sign_in": "Zaloguj się"
+    },
+    "error": {
+      "invalid_credentials": "Nieprawidłowe poświadczenia"
+    },
+    "input": {
+      "confirm_password": "Potwierdź hasło",
+      "password": "Hasło",
+      "username": "Nazwa użytkownika"
+    }
+  },
+  "month": {
+    "name": {
+      "apr": "Kwiecień",
+      "aug": "Sierpień",
+      "dec": "Grudzień",
+      "feb": "Luty",
+      "jan": "Styczeń",
+      "jul": "Lipiec",
+      "jun": "Czerwiec",
+      "mar": "Marzec",
+      "may": "Maj",
+      "nov": "Listopad",
+      "oct": "Październik",
+      "sep": "Wrzesień"
+    }
+  },
+  "month_nav": {
+    "button": {
+      "close_month": "Zamknij miesiąc",
+      "next_month": "Następny miesiąc",
+      "previous_month": "Poprzedni miesiąc"
+    },
+    "text": {
+      "active": "aktywny",
+      "closed": "zamknięty"
+    }
+  },
+  "projected_saving_card": {
+    "text": {
+      "why_this_amount": "Dlaczego taka ilość"
+    }
+  },
+  "projected_savings_card": {
+    "text": {
+      "projected": "Przewidywane"
+    }
+  },
+  "register": {
+    "button": {
+      "already_have_account": "Masz juz konto",
+      "create_account": "Utwórz konto"
+    },
+    "error": {
+      "password_must_be_at_least_6_characters": "Hasło musi mieć conajmniej 6 znaków",
+      "passwords_do_not_match": "Hasła się nie zgadzają",
+      "username_already_exists": "Nazwa użytkownika jest zajęta"
+    },
+    "select_currency": "Wybierz walute"
+  },
+  "retirment_savings": {
+    "text": {
+      "retirment_savings": "Oszczędności emerytalne"
+    }
+  },
+  "savings_card": {
+    "button": {
+      "how_this_works": "Jak to działa ?"
+    },
+    "modal": {
+      "how_savings_tracking_works": "Jak śledzenie oszczędności działa"
+    },
+    "text": {
+      "ahead": "ponad",
+      "based_on_remaining_budget": "Bazując na twoim pozostałym budżecie",
+      "based_on_your_goal": "Bazując na twoim celu",
+      "behind": "za",
+      "current_savings": "Aktualne oszczedności",
+      "current_savings_+_remaining_budget": "Aktualne oszczędności + pozostałości budżetu",
+      "goal": "Cel",
+      "got_it": "Mam to",
+      "progress_tracking": "Śledzenie budżetu",
+      "savings": "Oszczędności",
+      "savings_goal": "Cele oszczędnościowe",
+      "set_your_own_target_amount, if_no_goal_is_set,_it_defaults_to": "Ustaw swoja kwotę, w przeciwnym razie przypisana zostanie domyślna kwota",
+      "the_progress_bar_shows_how_close_you_are_to_your_goal,_green_means_you're_ahead_and_red_means_you're_behind": "Pasek postępu pokazuje jak blisko jesteś do twojego celu, zielony oznacza że jesteś ponad celem a czerwonym że przed celem",
+      "your_actual_savings_balance,_update_this_anytime_as_you_add_or_withdraw_money": "Twoje aktualne oszczędności, aktualizuj to za każdym razem jak dodajesz albo wydajesz pieniądze"
+    }
+  },
+  "settings": {
+    "button": {
+      "back_to_dashboard": "Wróc do panelu",
+      "cancel": "Anuluj",
+      "change_password": "Zmień hasło",
+      "changing": "Zmienianie",
+      "clear_all_data": "Usuń wszystkie dane",
+      "deleting": "Usuwane",
+      "save_username": "Zapisz nazwę użytkownika",
+      "saving": "Zapisywanoe",
+      "yes,_delete_everything": "Tak, usuń wszystko"
+    },
+    "error": {
+      "failed_to_change_password,_check_your_current_password": "Niepowodzenie podczas zmieniania hasła, sprawdź twoje obecne hasło",
+      "failed_to_change_username,_it_may_already_be_taken": "Niepowodzenie podczas zmieniania nazwy użytkownika, nazwa może być już zajęta",
+      "failed_to_clear_data,_check_your_password": "Niepowodzenie podczas usuwania danych, sprawdź swoje hasło",
+      "password_must_be_6-128_characters": "Hasło musi mieć conajmniej od 6 do 128 znaków",
+      "passwords_do_not_match": "Hasła się nie zgadzają",
+      "please_enter_your_password": "Proszę wpisz swoje hasło",
+      "username_must_be_3-32_characters": "Nazwa użytkownika musi mieć conajmniej od 3 do 32 znaków"
+    },
+    "input": {
+      "confirm_new_password": "Potwierdź nowe hasło",
+      "confirm_your_password": "Potwierdź twoje hasło",
+      "current_password": "Aktualne hasło",
+      "enter_current_password": "Wprowadź swoje aktualne haslo",
+      "enter_new_password": "Wprowadź nowe hasło",
+      "enter_new_username": "Wprowadź nową nazwę użytkownika",
+      "enter_your_password": "Wprowadź swoje hasło",
+      "new_password": "Nowe hasło",
+      "new_username": "Nowa nazwa użytkownika"
+    },
+    "text": {
+      "all_budget_categories": "Wszystkie kategorie budżetowe ",
+      "all_fixed_expenses": "Wszystkie stałe wydatki",
+      "all_income_entries": "Wszystkie wpływy",
+      "all_months_and_transactions": "Wszystkie miesiące i transakcje",
+      "change_password": "Zmień hasło",
+      "change_username": "Zmień nazwę użytkownika",
+      "danger_zone": "Niebezpieczna strefa",
+      "password_changed_successfully": "Hasło zostało zmienione",
+      "settings": "Ustawienia",
+      "this_action_cannot_be_undone, all_your_data_will_be_permanently_deleted": "Tej operacji nie da się odwrócić, wszystkie twoje dane będą usunięte na zwasze",
+      "username_changed_succesfully": "Nazwa użytkownika została zmieniona"
+    }
+  },
+  "stats": {
+    "button": {
+      "stats": "Statystyka"
+    },
+    "modal": {
+      "statistics": "Statystyka"
+    },
+    "text": {
+      "avg_monthly_income": "Średnie miesięczne przychodyy",
+      "avg_monthly_spending": "Średnie miesięczne wydatki",
+      "category_comparsion_vs_(last_month)": "Porównanie kategorii vs (ostatni miesiąc)",
+      "check_back_in_here_next_month": "Zajrzyj tutaj w przyszłym miesiącu",
+      "loading": "Ładowanie",
+      "montly_trends": "Trendy miesięczne",
+      "welcome_seems_this_is_your_first_month_on_payme": "Witaj, wygląda na to że to twój pierwszy miesiąc na payme"
+    }
+  },
+  "summary": {
+    "text": {
+      "deficit": "Deficyt",
+      "fixed": "Stałe wydatki",
+      "income": "Przychody",
+      "remaining": "Pozostało",
+      "spent": "Wydano"
+    }
+  },
+  "variance": {
+    "modal": {
+      "budget_analysis": "Analiza budżetu"
+    },
+    "text": {
+      "budget_overruns": "Przekroczenia budżetu",
+      "categories_are": "kategori jest",
+      "category_is": "Kategoria jest",
+      "great_discipline": "Niezła dyscyplina",
+      "heres_whats_affecting_your_projected_savings": "Co wpłyneło na twoje planowane oszczędności",
+      "income": "Przychód",
+      "income_is": "Przychód jest",
+      "income_shortfall": "Niedobór dochodów",
+      "less_than_needed_to_cover_expenses": "Mniej niż wymagane żeby pokryć wydatki",
+      "more_categories_under_budget": "Wiecej kategori poniżej budżetu",
+      "more_than_planned_across_your_categories": "wiecej niż w kategoriach budżetu",
+      "needed": "potrzebnych",
+      "net_impact": "Impakt na budżet",
+      "over_budget": "Ponad budżet ",
+      "total_over_budget": "Suma ponad budżet",
+      "total_under_budget": "Suma poniżej budżetu",
+      "under_budget": "poniżej budżetu",
+      "under_budget_(good!)": "poniżej budżetu(Nieźle!)",
+      "unplaned_spending": "Nieplanowane wydatki",
+      "you_are": "Jesteś",
+      "you_are_ahead_of_budget": "Przekraczasz budżet",
+      "you_are_right_on_track": "Jesteś na dobrej drodze",
+      "you_saved": "Oszczędziłeś"
+    }
+  }
+}
