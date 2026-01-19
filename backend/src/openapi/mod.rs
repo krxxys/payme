@@ -1,7 +1,7 @@
 use utoipa::OpenApi;
 
 use crate::handlers::{
-    auth::{LoginRequest, AuthResponse},
+    auth::{LoginRequest, RegisterRequest, AuthResponse},
     budget::{CreateCategory, UpdateCategory, UpdateMonthlyBudget},
     export::{
         BudgetExport, CategoryExport, FixedExpenseExport, IncomeExport, ItemExport, MonthExport,
@@ -57,6 +57,7 @@ use crate::models::{
     ),
     components(schemas(
         LoginRequest,
+        RegisterRequest,
         AuthResponse,
         MonthlyBudget,
         UpdateMonthlyBudget,
